@@ -5,8 +5,13 @@
     <meta charset="UTF-8">
     <title>Train Times</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-        crossorigin="anonymous">
+    crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-database.js"></script>
+
+    
 </head>
 
 <body>
@@ -44,7 +49,6 @@
         </div>
 
         <div class="card" id="add-train-div">
-
             <div class="card-header">Add Train</div>
 
             <div class="form" id="submit-info">
@@ -63,12 +67,12 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Frequencey (min):</label>
-                        <input class="form-control" id="FrequenceyInput" placeholder=" ">
+                        <input class="form-control" id="frequenceyInput" placeholder=" ">
                     </div>
                 </form>
 
                 <div class="button-container">
-                    <button type="button" class="btn btn-dark" id="submit">submit</button>
+                    <button type="button" class="btn btn-success" id="submit">submit</button>
                 </div>
             </div>
 
@@ -87,7 +91,6 @@
 
 
     </div>
-
 
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
