@@ -1,0 +1,39 @@
+#header {
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.card-header {
+    background-color: black;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    color: white;
+}
+
+#submit-info {
+    padding: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+.card {
+    border: 1px solid black;
+}
+
+/* .form {
+    border: 1px solid black;
+} */
+
+#add-train-div{
+    margin-bottom: 30px;
+    /* border: 1px solid black; */
+}
+
+#train-schedule-div {
+    margin-bottom: 30px;
+    /* border: 1px solid black; */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
