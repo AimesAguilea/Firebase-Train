@@ -27,7 +27,6 @@ $("#submit").on("click", function (event) {
     event.preventDefault();
 
     trainName = $("#trainInput").val().trim();
-    console.log(trainName);
     destination = $("#destinationInput").val().trim();
     firstTime = $("#firstTimeInput").val().trim();
     frequencey = $("#frequenceyInput").val().trim();
@@ -36,9 +35,32 @@ $("#submit").on("click", function (event) {
         name: trainName,
         destin: destination,
         time: firstTime,
-        freq: frequencey,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
+        freq: frequencey
+        // timeAway: minTrainAway -- add comma above
     });
+
+
+    var firstTimeMath = moment(firstTime, "HH:mm").subtract(1, "years");
+    console.log(firstTimeMath);
+
+    var currentTime = moment();
+    console.log(currentTime);
+    console.log("current time: " + moment(currentTime).format("HH:mm"));
+
+    var timeDiff = moment().diff(moment(firstTimeMath), "minutes");
+    console.log("time difference: " + timeDiff);
+
+    var remainingTime = timeDiff % frequencey;
+    console.log(remainingTime);
+
+    var minTrainAway = frequencey - remainingTime;
+    console.log("min. till train: " + minTrainAway);
+
+
+    var nextTrain = moment().add(minTrainAway, "minutes");
+    console.log("arrival time: " + moment(nextTrain).format("HH:mm"));
+
+
 });
 
 
@@ -48,7 +70,37 @@ database.ref().on("child_added", function(childsnapshot){
     var destination = childsnapshot.val().destin;
     var firstTime = childsnapshot.val().time;
     var frequencey = childsnapshot.val().freq;
+    // var minTrainAway = childsnapshot.val().timeAway;
 
-    $("tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + firstTime + "</td><td>" +frequencey + "</td></tr>");
+    //------
+    
+    //variables for time till next train go here:
+    //nextTime -- currentTime = minUntilNext
+
+
+    //'if' minUntilNext < frequency, then: 
+    //minUntilNext + frequency = outputTime
+    //then, find the difference in time between the currentTime and the outputTime,
+    //that is the "minutes away" variable:
+    //outputTime -- currentTime = minAway
+
+    //'else' minUntilNext > frequency, then:
+    //currentTime -- minUntilNext = minAway
+
+    //------
+
+    // THIS LINE OF CODE WORKS THE SAME AS BELOW IT:
+    // $("tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequencey + "</td><td>" + nextTime + "</td></tr>");
+   
+    var newRow = $("<tr>").append(
+        $("<td>").append(trainName),
+        $("<td>").append(destination),
+        $("<td>").append(frequencey),
+        $("<td>").append(firstTime),
+        // $("<td id='time-away'>")
+        // $("<td>").append(minTrainAway)
+    );
+    $("#table-rows > tbody").append(newRow);
+
 });
 
