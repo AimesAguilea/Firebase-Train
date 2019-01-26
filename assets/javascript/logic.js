@@ -1,7 +1,7 @@
 
 
 // <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
-// {/* <script> */}
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBbPLKiXIC2pOaOBaCYdFdMgri59qoYj-g",
@@ -12,15 +12,16 @@ var config = {
     messagingSenderId: "439330888827"
 };
 firebase.initializeApp(config);
-// </script>
 
 var database = firebase.database();
+
 
 var trainName = "";
 var destination = "";
 var firstTime = "";
 var frequencey = "";
-
+var minTrainAway = "";
+// var nextTime = "";
 
 
 $("#submit").on("click", function (event) {
@@ -30,36 +31,36 @@ $("#submit").on("click", function (event) {
     destination = $("#destinationInput").val().trim();
     firstTime = $("#firstTimeInput").val().trim();
     frequencey = $("#frequenceyInput").val().trim();
+    
+    var firstTimeMath = moment(firstTime, "HH:mm").subtract(1, "years");
+    console.log(firstTimeMath);
+    
+    var currentTime = moment();
+    console.log(currentTime);
+    console.log("current time: " + moment(currentTime).format("HH:mm"));
+    
+    var timeDiff = moment().diff(moment(firstTimeMath), "minutes");
+    console.log("time difference: " + timeDiff);
+    
+    var remainingTime = timeDiff % frequencey;
+    console.log(remainingTime);
+    
+    var minTrainAway = frequencey - remainingTime;
+    console.log("min. till train: " + minTrainAway);
+    
+    
+    var nextTrain = moment().add(minTrainAway, "minutes");
+    console.log("arrival time: " + moment(nextTrain).format("HH:mm"));
 
+    
     database.ref().push({
         name: trainName,
         destin: destination,
         time: firstTime,
-        freq: frequencey
-        // timeAway: minTrainAway -- add comma above
+        freq: frequencey,
+        timeAway: minTrainAway,
+        // nextTime: nextTrain
     });
-
-
-    var firstTimeMath = moment(firstTime, "HH:mm").subtract(1, "years");
-    console.log(firstTimeMath);
-
-    var currentTime = moment();
-    console.log(currentTime);
-    console.log("current time: " + moment(currentTime).format("HH:mm"));
-
-    var timeDiff = moment().diff(moment(firstTimeMath), "minutes");
-    console.log("time difference: " + timeDiff);
-
-    var remainingTime = timeDiff % frequencey;
-    console.log(remainingTime);
-
-    var minTrainAway = frequencey - remainingTime;
-    console.log("min. till train: " + minTrainAway);
-
-
-    var nextTrain = moment().add(minTrainAway, "minutes");
-    console.log("arrival time: " + moment(nextTrain).format("HH:mm"));
-
 
 });
 
@@ -70,22 +71,10 @@ database.ref().on("child_added", function(childsnapshot){
     var destination = childsnapshot.val().destin;
     var firstTime = childsnapshot.val().time;
     var frequencey = childsnapshot.val().freq;
-    // var minTrainAway = childsnapshot.val().timeAway;
+    var minTrainAway = childsnapshot.val().timeAway;
 
     //------
     
-    //variables for time till next train go here:
-    //nextTime -- currentTime = minUntilNext
-
-
-    //'if' minUntilNext < frequency, then: 
-    //minUntilNext + frequency = outputTime
-    //then, find the difference in time between the currentTime and the outputTime,
-    //that is the "minutes away" variable:
-    //outputTime -- currentTime = minAway
-
-    //'else' minUntilNext > frequency, then:
-    //currentTime -- minUntilNext = minAway
 
     //------
 
@@ -97,8 +86,7 @@ database.ref().on("child_added", function(childsnapshot){
         $("<td>").append(destination),
         $("<td>").append(frequencey),
         $("<td>").append(firstTime),
-        // $("<td id='time-away'>")
-        // $("<td>").append(minTrainAway)
+        $("<td>").append(minTrainAway)
     );
     $("#table-rows > tbody").append(newRow);
 
