@@ -7,6 +7,6 @@ Discription:
   When the user hits submit, their train info is displayed on the Train Schedule along with the time in minutes their train is away based     on the current time.
   The user's info is also stored in Firebase database.
   
-Solved:
+
 
 Link to App: https://aimesaguilea.github.io/Firebase-Train/
