@@ -7,6 +7,7 @@
 
 .card-header {
     background-color: black;
+    font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
     font-size: 15px;
     color: white;
@@ -25,6 +26,7 @@
 
 #add-train-div{
     margin-bottom: 30px;
+    background-image: url(images/crumpled-paper.jpeg);
 }
 
 #train-schedule-div {
@@ -32,6 +34,7 @@
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 14px;
+    background-image: url(images/crumpled-paper.jpeg);
 }
 
 .button-container {
@@ -41,5 +44,21 @@
 }
 
 body {
-    background-image: url("landscape-of-rice-farm-in-thailand-crane-shot_v1jplnz4g__F0002.png");
+    background-image: url("images/rain-drops.jpeg");
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.btn-light {
+    background-color: #9cd3c1;
+}
+
+td {
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
 }
